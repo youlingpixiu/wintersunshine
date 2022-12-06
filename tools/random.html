@@ -1,0 +1,128 @@
+<!--
+ * @Copyright: 2016-2022 航天神舟智慧系统技术有限公司
+ * @Descripttion: 页面描述
+ * @Author: sundongyang
+ * @Date: 2022-11-21 16:55:29
+ * @LastEditors: sundongyang
+ * @LastEditTime: 2022-12-06 12:39:26
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>ViewUI example-随机数</title>
+  <!-- import ViewUI -->
+  <!-- <link rel="stylesheet" type="text/css" href="http://unpkg.com/view-design/dist/styles/iview.css">
+  <script type="text/javascript" src="http://unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
+  <script type="text/javascript" src="http://unpkg.com/view-design/dist/iview.min.js"></script> -->
+  <!-- import element CSS -->
+  <link rel="stylesheet" href="../element-ui/@2.5.12/lib/theme-chalk/index.css">
+  <link rel="stylesheet" href="../css/common.css">
+  <!-- import Vue before Element 2.7.14 -->
+  <script src="../vue/vue.js"></script>
+  <!-- import JavaScript -->
+  <script src="../element-ui/@2.5.12/lib/index.js"></script>
+</head>
+
+<body>
+  <div id="app" class="app-container">
+    <el-tabs v-model="activeName" @tab-click="handleClick">
+      <el-tab-pane :label="item.label" :name="item.name" v-for="item in tabData" :key="item.name">
+        <!-- 随机数 -->
+        <div style="height:100%;" v-if="activeName == 'first'">
+          <el-form ref="form" :model="form" label-width="80px">
+            <div style="width: 50%;">
+              <el-form-item label="最小值">
+                <el-input v-model="form.minVal" type="number"></el-input>
+              </el-form-item>
+              <el-form-item label="最大值">
+                <el-input v-model="form.maxVal" type="number"></el-input>
+              </el-form-item>
+              <el-form-item label="获取数量">
+                <el-input v-model="form.num" type="number"></el-input>
+              </el-form-item>
+              <el-form-item label="输出结果">
+                <el-input type="textarea" v-model="form.desc"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="onSubmit">立即创建</el-button>
+                <el-button>取消</el-button>
+              </el-form-item>
+
+            </div>
+          </el-form>
+        </div>
+        <!--  -->
+
+        <div style="height:100%;" v-if="activeName == 'second'">
+          {{item.label}}
+        </div>
+        <div style="height:100%;" v-if="activeName == 'third'">
+          {{item.label}}
+        </div>
+        <div style="height:100%;" v-if="activeName == 'fourth'">
+          {{item.label}}
+        </div>
+
+      </el-tab-pane>
+    </el-tabs>
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#app',
+    data: function () {
+      return {
+        visible: false,
+        activeName: "first",
+        tabData: [{
+            label: "随机数",
+            name: "first"
+          },
+          {
+            label: "配置管理",
+            name: "second"
+          },
+          {
+            label: "角色管理",
+            name: "third"
+          },
+          {
+            label: "定时任务补偿",
+            name: "fourth"
+          }
+        ],
+        form: {
+          desc: '',
+          minVal: 3000,
+          maxVal: 5000,
+          num: 10
+        }
+      }
+    },
+    methods: {
+      onSubmit() {
+        this.print()
+      },
+      show() {
+        this.visible = true;
+      },
+      print() {
+        this.form.desc = "";
+        for (let index = 0; index < 10; index++) {
+          let val = this.randomFrom(this.form.minVal, this.form.maxVal)
+          this.form.desc = this.form.desc + '--' + val;
+        }
+      },
+      randomFrom(lowerValue, upperValue) {
+        return Math.floor(Math.random() * (upperValue - lowerValue + 1) + lowerValue);
+      },
+      handleClick(e) {
+        console.log('e', e);
+      }
+    }
+  })
+</script>
+
+</html>
