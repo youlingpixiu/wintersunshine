@@ -4,7 +4,7 @@
  * @Author: sundongyang
  * @Date: 2022-11-21 16:55:29
  * @LastEditors: sundongyang
- * @LastEditTime: 2022-12-08 11:33:31
+ * @LastEditTime: 2022-12-08 11:36:18
 -->
 <!DOCTYPE html>
 <html>
@@ -15,13 +15,11 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <!-- import ViewUI -->
-  <!-- <link rel="stylesheet" type="text/css" href="http://unpkg.com/view-design/dist/styles/iview.css">
-  <script type="text/javascript" src="http://unpkg.com/vue@2.6.14/dist/vue.min.js"></script>
-  <script type="text/javascript" src="http://unpkg.com/view-design/dist/iview.min.js"></script> -->
   <!-- import element CSS -->
   <link rel="stylesheet" href="../element-ui/@2.5.12/lib/theme-chalk/index.css">
   <link rel="stylesheet" href="../css/common.css">
+  <link rel="stylesheet" href="../css/index.css">
+
   <!-- import Vue before Element 2.7.14 -->
   <script src="../js/dayjs.min.js"></script>
   <script src="../js/moment.js"></script>
@@ -32,59 +30,22 @@
 </head>
 
 <body>
-  <div id="app" class="app-container">
-    <el-tabs v-model="activeName" @tab-click="handleClick">
-      <el-tab-pane :label="item.label" :name="item.name" v-for="item in tabData" :key="item.name">
-        <!-- 随机数 -->
-        <div style="height:100%;" v-if="activeName == 'first'">
-          <el-form ref="form" :model="form" label-width="80px">
-            <div style="width: 100%;">
-              <el-form-item label="最小值">
-                <el-input v-model="form.minVal" type="number"></el-input>
-              </el-form-item>
-              <el-form-item label="最大值">
-                <el-input v-model="form.maxVal" type="number"></el-input>
-              </el-form-item>
-              <el-form-item label="获取数量">
-                <el-input v-model="form.num" type="number"></el-input>
-              </el-form-item>
-              <el-form-item label="输出结果">
-                <el-input style="font-weight: bold;" type="textarea" v-model="form.desc"></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="getRangeNumber">获取范围内的随机数</el-button>
-                <el-button type="primary" @click="getNumber">获取小于最大值的随机数</el-button>
-              </el-form-item>
-            </div>
-          </el-form>
-        </div>
-        <!-- 获取截止时分秒 -->
-        <div style="height:100%;" v-if="activeName == 'second'">
-          <el-form ref="form" :model="form" label-width="80px">
-            <div style="width: 100%;">
-              <el-form-item label="截止日期">
-                <el-date-picker v-model="form.dateTime" type="datetime" value-format="yyyy-MM-dd HH:mm:ss"
-                  :clearable="false" :picker-options="pickerOptions" placeholder="选择日期时间" @change="dateTimeChange">
-                </el-date-picker>
-              </el-form-item>
-              <el-form-item label="倒计时">
-                <div style="font-size:20px;">
-                  {{dateObj.d}}天{{dateObj.h}}时{{dateObj.m}}分{{dateObj.s}}秒
-                </div>
-              </el-form-item>
-            </div>
-          </el-form>
-
-        </div>
-        <div style="height:100%;" v-if="activeName == 'third'">
-          {{item.label}}
-        </div>
-        <div style="height:100%;" v-if="activeName == 'fourth'">
-          {{item.label}}
-        </div>
-
-      </el-tab-pane>
-    </el-tabs>
+  <div id="app" class="time_container">
+    <el-form ref="form" :model="form" label-width="80px">
+      <div class="basic_title"><i class="title_class"></i><span>人员信息</span></div>
+      <div style="width: 100%;">
+        <el-form-item label="截止日期">
+          <el-date-picker v-model="form.dateTime" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" :clearable="false"
+            :picker-options="pickerOptions" placeholder="选择日期时间" @change="dateTimeChange">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="倒计时">
+          <div style="font-size:20px;">
+            {{dateObj.d}}天{{dateObj.h}}时{{dateObj.m}}分{{dateObj.s}}秒
+          </div>
+        </el-form-item>
+      </div>
+    </el-form>
   </div>
 </body>
 <script>
