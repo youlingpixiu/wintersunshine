@@ -31,7 +31,7 @@
         <i class="title_class"></i><span>{{item.typeName}}</span>
       </div>
       <div style="width: 100%;" v-if="item.typeList.length>0">
-        <span class="name_class" v-for="(item2,index2) in item.typeList" :key="index2" :label="item2.name">
+        <span class="name_class" v-for="(item2,index2) in item.typeList" :key="index2" :title="item2.name">
           <span class="info_value" @click="openUrl(item2.url)">「{{item2.name}}」</span>
         </span>
       </div>
