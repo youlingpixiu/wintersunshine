@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>夸克网盘资源</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="../../element-ui/@2.5.12/lib/theme-chalk/index.css">
+  <link rel="stylesheet" href="../../css/common.css">
+  <link rel="stylesheet" href="../../css/index.css">
+  <script src="../../js/dayjs.min.js"></script>
+  <script src="../../js/moment.js"></script>
+  <script src="../../vue/vue.js"></script>
+  <script src="../../js/httpVueLoader.js"></script>
+  <script src="../../element-ui/@2.5.12/lib/index.js"></script>
+  <script src="../../assets/quark/quark.js"></script>
+</head>
+
+<body>
+  <div id="app" class="time_container">
+    <div style="text-align: center;">
+      <h1>夸克网盘资源</h1>
+      <h5>
+        <p class="info_value" @click="openUrl('https://www.kdocs.cn/l/crYhHjYk1OTB')">资源汇总</p>
+        <P class="info_value" @click="openWechat()">迷人的小狐狸</P>
+        <p class="info_value" @click="openQQChat()">资源QQ群：362220971</p>
+      </h5>
+    </div>
+    <div v-for="(item,index) in itemList" :key="index">
+      <div class="basic_title">
+        <i class="title_class"></i><span>{{item.typeName}}</span>
+      </div>
+      <div style="width: 100%;" v-if="item.typeList.length>0">
+        <span class="name_class" v-for="(item2,index2) in item.typeList" :key="index2" :label="item2.name">
+          <span class="info_value" @click="openUrl(item2.url)">「{{item2.name}}」</span>
+        </span>
+      </div>
+    </div>
+  </div>
+</body>
+<script>
+
+  // Vue.config.productionTip = false;
+  // Vue.config.devtools = false;
+
+  // Vue.use(httpVueLoader);
+  new Vue({
+    el: '#app',
+    components: {
+      'my-component': {
+        template: `<h1>中国</h1>`
+      }
+    },
+    data: function () {
+      return {
+        itemList: quark_json,
+      }
+    },
+    mounted() {
+    },
+    created() { },
+    methods: {
+      openUrl(url) {
+        window.open(url, '_blank');
+      },
+      openQQChat() {
+        // 这里的URL是QQ聊天的URL Scheme，并非所有用户都安装了QQ或支持这个协议
+        // 请替换以下的URL为你的QQ号对应的URL Scheme
+        let qqChatUrl = "https://rc.qzone.qq.com/infocenter?via=toolbar&loginFromAppcenter=1719928539880";
+        window.open(qqChatUrl, '_blank');
+      },
+      openWechat() {
+        // 这里的URL是QQ聊天的URL Scheme，并非所有用户都安装了QQ或支持这个协议
+        // 请替换以下的URL为你的QQ号对应的URL Scheme
+        let qqChatUrl = "https://mp.weixin.qq.com/mp/profile_ext?action=home&__biz=MzUzOTcwMTY4Mw==#wechat_redirect";
+        window.open(qqChatUrl, '_blank');
+      }
+    }
+  })
+</script>
+
+</html>
