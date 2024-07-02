@@ -167,7 +167,8 @@
       },
       // 倒计时
       getRTime() {
-        var nowTime = this.form.dateTime.replace(/-/g, '/')
+        var nowTime = this.form.dateTime.replace(/-/g, '/')；
+        console.log('nowTime',nowTime)
         var EndTime = new Date(nowTime); //截止时间 
         var NowTime = new Date();
         var t = EndTime.getTime() - NowTime.getTime();
