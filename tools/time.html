@@ -18,7 +18,7 @@
   <!-- import element CSS -->
   <link rel="stylesheet" href="../element-ui/@2.5.12/lib/theme-chalk/index.css">
   <link rel="stylesheet" href="../css/common.css">
-  <link rel="stylesheet" href="../css/index.css">
+<!--   <link rel="stylesheet" href="../css/index.css"> -->
 
   <!-- import Vue before Element 2.7.14 -->
   <script src="../js/dayjs.min.js"></script>
@@ -167,7 +167,9 @@
       },
       // 倒计时
       getRTime() {
-        var EndTime = new Date(this.form.dateTime); //截止时间 
+        var nowTime = this.form.dateTime.replace(/-/g, '/')
+        console.log('nowTime',nowTime)
+        var EndTime = new Date(nowTime); //截止时间 
         var NowTime = new Date();
         var t = EndTime.getTime() - NowTime.getTime();
         /*var d=Math.floor(t/1000/60/60/24);
