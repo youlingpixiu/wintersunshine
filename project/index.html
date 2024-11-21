@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>游览黄河 体验幸福</title>
+    <link rel="shortcut icon" href="./image/favicon.ico" />
+    <!-- 生产环境版本，优化了尺寸和速度 -->
+    <script src="./js/api.js"></script>
+    <script src="./js/vue@2.7.16.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        html {
+            font-size: calc(18px + (24 - 16) * ((100vw - 320px) / (1920 - 320)));
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <div id="container">
+            <div class="logo">
+                <img src="./image/logo.png" alt="">
+            </div>
+            <div class="title">
+                <img src="./image/title.png" alt="">
+            </div>
+            <!-- 打字机效果 -->
+            <div class="textClass">
+                <div id="header-effect"></div>
+                <div id="footer-effect"></div>
+            </div>
+            <div class="content">
+                <div class="text">
+                    <img src="./image/text.png" alt="">
+                    <div class="diffusion-container">
+                        <div class="diffusion">
+                            <div class="circle"></div>
+                        </div>
+                        <div class="text-content">欢迎您成为助力黄河高质量发展第<span class="num">{{total}}</span>人</div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div @click="goToVideo(item)" v-for="(item, index) in typeList" :key="index" class="box_img">
+                        <img :src="item.url" alt="">
+                        <span class="desc">{{item.name}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                total: '',
+                token: '',
+                typeList: [
+                    {
+                        name: '空中视角',
+                        url: './image/air.png',
+                        videoType: 'air'
+                    },
+                    {
+                        name: '陆路视角',
+                        url: './image/road.png',
+                        videoType: 'road'
+                    },
+                    {
+                        name: '水路视角',
+                        url: './image/water.png',
+                        videoType: 'water'
+                    }
+                ],
+                timer: null,
+                text: '2019年9月18日，习近平总书记在河南视察黄河时指出：要推动黄河流域生态保护和高质量发展。让黄河成为造福人民的幸福河。” 五年来，河南省牢记嘱托，奋勇争先，生态保护的千古难题正逐步解答，幸福河建设一步步变为现实。',
+                last: '下面请从空中，水路，陆路三个视角去体验黄河流域（河南段）发生的巨变。'
+            },
+            mounted () {
+                // 打字机效果
+                this.startTypewriterEffect(this.text, true)
+                // 获取点击次数
+                this.getNum()
+            },
+            methods: {
+                goToVideo: function (item) {
+                    if (item.videoType === 'water') {
+                        window.open(API.water_video, '_self')
+                    }
+                    if (item.videoType === 'air') {
+                        window.open(API.air_video, '_self')
+                    }
+                    if (item.videoType === 'road') {
+                        window.open(API.road_video, '_self')
+                    }
+                },
+                // 获取访问数量
+                getNum () {
+                    
+                },
+                // 打字机效果
+                startTypewriterEffect (text, type) {
+                    let that = this;
+                    // 显示的位置
+                    let elementId = 'header-effect'
+                    if (!type) {
+                        elementId = 'footer-effect'
+                    }
+                    var element = document.getElementById(elementId);
+                    // 当前显示的字符位置
+                    var index = 0;
+                    // 清除定时器，以防多个定时器同时运行
+                    clearInterval(this.timer);
+                    // 创建一个新的定时器，每50毫秒更新一次文本
+                    this.timer = setInterval(function () {
+                        // 如果已经显示了所有文本，则停止定时器
+                        if (index === text.length) {
+                            clearInterval(this.timer);
+                            if (type) {
+                                that.startTypewriterEffect(that.last, false)
+                            }
+                        } else {
+                            // 显示下一个字符
+                            element.innerHTML += text.charAt(index++);
+                        }
+                    }, 50);
+                }
+            }
+        })
+    </script>
+    <style>
+        #container {
+            height: 100vh;
+            background: url('./image/bg.jpg') center center / cover no-repeat;
+            background-size: 100% 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* logo */
+        .logo img {
+            width: 30%;
+            margin: 20px 30px 10px;
+        }
+
+        /* 标题 */
+        .title {
+            text-align: center;
+        }
+
+        .title img {
+            width: 80%;
+            margin: 10px;
+        }
+
+        .textClass {
+            min-height: 10rem;
+            color: #fff;
+            font-size: 0.88rem;
+            padding: 0 10px;
+            font-family: serif;
+            font-weight: bold;
+        }
+
+        #header-effect,
+        #footer-effect {
+            text-indent: 1.78rem;
+            text-shadow: 0px 2px 1px #000;
+            text-align: justify;
+        }
+
+        .header img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .content {
+            padding: 14px 0;
+            background-size: 100% 100%;
+            text-align: center;
+
+        }
+
+        .text {
+            color: #763e19;
+            text-align: center;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .text img {
+            width: 95%;
+        }
+
+        .text-content {
+            margin-left: 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .diffusion-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            width: 85%;
+            margin-left: 8%;
+            top: 4px;
+        }
+
+        .diffusion {
+            position: relative;
+            width: 1.1rem;
+            height: 1.1rem;
+            background-color: red;
+            border-radius: 50%;
+            animation: expand 2s infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .circle {
+            width: 0.55rem;
+            height: 0.55rem;
+            background-color: #fffffff0;
+            border-radius: 50%;
+        }
+
+        @keyframes expand {
+            0% {
+                transform: scale(1);
+                background-color: red;
+            }
+
+            50% {
+                transform: scale(1.4);
+                background-color: red;
+            }
+
+            100% {
+                transform: scale(1);
+                background-color: red;
+            }
+        }
+
+        .num {
+            font-size: 1.1rem !important;
+            color: #931e0b;
+            font-weight: bold;
+        }
+
+        .content .item {
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .box_img {
+            width: 25%;
+            text-align: center;
+        }
+
+        .box_img img {
+            height: 100%;
+            width: 100%;
+        }
+
+        .desc {
+            margin-top: 0.9rem;
+            display: inline-block;
+            font-family: cursive;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .footer {
+            background: url('./image/footer.jpg') no-repeat;
+            height: 100%;
+            width: 100%;
+            background-size: 100% 100%;
+        }
+    </style>
+</body>
+
+</html>
