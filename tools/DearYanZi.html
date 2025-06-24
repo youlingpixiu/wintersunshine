@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>艳子，生日快乐</title>
+  <style>
+    /* 基础样式 */
+    @import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=ZCOOL+XiaoWei&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'ZCOOL XiaoWei', serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #f8d7e3 0%, #f0b9d3 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* 背景装饰 */
+    .petal {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='%23ff9bb3'%3E%3Cpath d='M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z'/%3E%3C/svg%3E");
+      background-size: cover;
+      opacity: 0.7;
+      animation: fall 8s linear infinite;
+      transform-origin: top center;
+    }
+    
+    @keyframes fall {
+      0% {
+        top: -10%;
+        transform: translateX(0) rotate(0deg);
+      }
+      100% {
+        top: 100%;
+        transform: translateX(50px) rotate(360deg);
+      }
+    }
+    
+    /* 卡片样式 */
+    .card {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(240, 185, 211, 0.4);
+      padding: 40px;
+      max-width: 600px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #ff6b9d, #ff9bb3, #ffc9d3, #ff9bb3, #ff6b9d);
+      animation: borderMove 8s linear infinite;
+    }
+    
+    @keyframes borderMove {
+      0% {
+        background-position: 0% 0;
+      }
+      100% {
+        background-position: 100% 0;
+      }
+    }
+    
+    /* 标题样式 */
+    .title {
+      font-family: 'Ma Shan Zheng', cursive;
+      color: #ff6b9d;
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 3px rgba(255, 107, 157, 0.3);
+      position: relative;
+    }
+    
+    .title::after {
+      content: "";
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: #ff6b9d;
+      margin: 10px auto 0;
+      border-radius: 3px;
+    }
+    
+    /* 内容段落样式 */
+    .content p {
+      margin-bottom: 20px;
+      font-size: 1.1rem;
+      color: #555;
+      position: relative;
+      z-index: 1;
+    }
+    
+    .content p:first-of-type::first-letter {
+      font-size: 2.5rem;
+      color: #ff6b9d;
+      float: left;
+      margin-right: 10px;
+      line-height: 0.9;
+    }
+    
+    .highlight {
+      color: #ff6b9d;
+      font-weight: bold;
+      position: relative;
+    }
+    
+    .highlight::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: rgba(255, 107, 157, 0.3);
+      border-radius: 2px;
+    }
+    
+    .quote {
+      font-style: italic;
+      color: #777;
+      border-left: 3px solid #ffb3cd;
+      padding-left: 15px;
+      margin-left: 10px;
+      position: relative;
+    }
+    
+    .quote::before {
+      content: "❝";
+      color: #ffb3cd;
+      font-size: 1.5rem;
+      position: absolute;
+      left: -20px;
+      top: -5px;
+    }
+    
+    .ending {
+      text-align: right;
+      margin-top: 30px;
+      font-family: 'Ma Shan Zheng', cursive;
+      color: #ff6b9d;
+      font-size: 1.2rem;
+    }
+    
+    /* 鲜花装饰 */
+    .flower {
+      position: absolute;
+      bottom: 20px;
+      right: 30px;
+      width: 120px;
+      opacity: 0.8;
+      animation: float 4s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-15px);
+      }
+    }
+    
+    /* 响应式调整 */
+    @media (max-width: 600px) {
+      .card {
+        padding: 30px 20px;
+      }
+      
+      .title {
+        font-size: 2rem;
+      }
+      
+      .content p {
+        font-size: 1rem;
+      }
+      
+      .flower {
+        width: 80px;
+        right: 20px;
+        bottom: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 花瓣飘落动画 -->
+  <div id="petals"></div>
+  
+  <div class="card">
+    <h1 class="title">艳子，生日快乐</h1>
+    
+    <div class="content">
+      <p>记得你说过今天没有鲜花，所以我特意为你准备了一束 —— 或许它不能陪你走过往后每一个晨昏，却想在今天替我拥抱你的笑脸。其实提笔时想了很多话，最终却只想轻轻说一句：<span class="highlight">「我很想你」</span>。</p>
+      
+      <p>知道我们此生或许难有并肩的缘分，但心底始终为你留着一个位置 —— 是朋友，是知己，是无论时光如何流转都不会褪色的牵挂。我在郑州的街头等风也等你，不奢求永远相伴，只愿你步履所至皆有阳光，眼底笑意常如初见。</p>
+      
+      <p>愿你新的一岁里，钱包总比烦恼鼓，日子总比蜜糖甜，少为琐事皱眉，多被美好环绕。若某天你累了、倦了，回头看看 —— 我在这里，那句 <span class="quote">"我养你"</span> 不是玩笑，是藏在心底很久的认真。</p>
+      
+      <p class="ending">艳子，生日快乐。愿你永远是那个眼里有光的姑娘，而我，会是你永远的「花匠」，在你需要时，为你递上一束光，或是一个坚实的肩膀。</p>
+    </div>
+    
+    <!-- 鲜花装饰 -->
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 24 24' fill='none' stroke='%23ff6b9d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='M12 2v20M2 12h20'/%3E%3C/svg%3E" alt="鲜花" class="flower">
+  </div>
+
+  <script>
+    // 动态生成花瓣
+    function createPetals() {
+      const petalsContainer = document.getElementById('petals');
+      const petalCount = 30;
+      
+      for (let i = 0; i < petalCount; i++) {
+        const petal = document.createElement('div');
+        petal.className = 'petal';
+        
+        // 随机位置和动画延迟
+        const left = Math.random() * 100;
+        const delay = Math.random() * 5;
+        const duration = 5 + Math.random() * 10;
+        
+        petal.style.left = `${left}%`;
+        petal.style.animationDelay = `${delay}s`;
+        petal.style.animationDuration = `${duration}s`;
+        
+        petalsContainer.appendChild(petal);
+      }
+    }
+    
+    // 页面加载完成后生成花瓣
+    window.addEventListener('load', createPetals);
+  </script>
+</body>
+</html>
